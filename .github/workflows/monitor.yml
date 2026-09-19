@@ -3,7 +3,7 @@ name: Apple TSS Signing Monitor
 on:
   workflow_dispatch:
   schedule:
-    - cron: "2-57/5 * * * *"
+    - cron: "25 19 * * *"
 
 permissions:
   contents: write
