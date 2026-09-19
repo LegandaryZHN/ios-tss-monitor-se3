@@ -163,22 +163,29 @@ def smtp_send(subject: str, body: str) -> None:
             smtp.send_message(msg)
 
 
-def render_alert(result: dict[str, Any], previous: str | None, reason: str) -> tuple[str, str]:
-    subject = f"🚨 Apple TSS Signing Alert — {result['name']} — iOS {result['version']} ({result['buildid']})"
+def render_alert(
+    result: dict[str, Any],
+    previous_record: dict[str, Any],
+    reason: str,
+    changed: list[str],
+) -> tuple[str, str]:
+    subject = f"🚨 Apple Signing Status Changed — {result['name']} — iOS {result['version']} ({result['buildid']})"
+    previous_ipsw = previous_record.get("ipsw_status", "UNKNOWN")
+    previous_tss = previous_record.get("tss_status", "UNKNOWN")
+    current_ipsw = "SIGNED" if result["ipsw_signed"] else "UNSIGNED"
+
     body = (
-        f"Apple firmware signing monitor alert\n\n"
+        "Apple firmware signing monitor alert\n\n"
         f"Device: {result['name']}\n"
         f"ProductType: {result['device']}\n"
         f"iOS: {result['version']}\n"
         f"Build: {result['buildid']}\n\n"
-        f"IPSW.me: {'SIGNED' if result['ipsw_signed'] else 'UNSIGNED'}\n"
-        f"Apple TSS: {result['tss_status']}"
-        f"{f' (STATUS={result["tss_code"]})' if result['tss_code'] is not None else ''}\n"
-        f"Verification: {result['status']}\n"
-        f"Previous state: {previous or 'NONE'}\n"
-        f"Reason: {reason}\n"
+        f"IPSW.me: {previous_ipsw} → {current_ipsw}\n"
+        f"Apple TSS: {previous_tss} → {result['tss_status']}\n"
+        f"Verification: {result['status']}\n\n"
+        f"Changed source(s): {'; '.join(changed)}\n"
         f"TSS detail: {result['tss_detail']}\n\n"
-        f"Action: if this firmware is important to you, save the SHSH2 blob immediately.\n"
+        "If this firmware is important to you, save the SHSH2 blob immediately.\n"
     )
     return subject, body
 
@@ -226,41 +233,61 @@ def main() -> int:
                     print(f"[WARN] {result.get('reason')}", file=sys.stderr)
 
     alerts: list[tuple[str, str]] = []
-    initial_signed: list[dict[str, Any]] = []
+    baseline: list[dict[str, Any]] = []
 
     for result in sorted(all_results, key=lambda r: (r["device"], version_tuple(r["version"]), r["buildid"])):
         key = f"{result['device']}:{result['buildid']}"
         previous_record = state.get(key)
-        previous = previous_record.get("status") if isinstance(previous_record, dict) else None
+        current_ipsw = "SIGNED" if result["ipsw_signed"] else "UNSIGNED"
+        current_tss = result["tss_status"]
 
-        current = result["status"]
-        if previous is None and current == "SIGNED_CONFIRMED":
-            initial_signed.append(result)
-        elif previous != current:
-            if current == "SIGNED_CONFIRMED" and previous in {None, "UNKNOWN", "UNSIGNED_CONFIRMED"}:
-                alerts.append(render_alert(result, previous, "Signing state changed to confirmed signed."))
-            elif current == "CONFLICT":
-                alerts.append(render_alert(result, previous, "IPSW.me and Apple TSS disagree."))
+        if not isinstance(previous_record, dict) or not previous_record:
+            # First run: establish the baseline and report it once.
+            baseline.append(result)
+        else:
+            previous_ipsw = previous_record.get("ipsw_status")
+            previous_tss = previous_record.get("tss_status")
+
+            changed: list[str] = []
+            if previous_ipsw in {"SIGNED", "UNSIGNED"} and current_ipsw in {"SIGNED", "UNSIGNED"} and previous_ipsw != current_ipsw:
+                changed.append(f"IPSW.me: {previous_ipsw} → {current_ipsw}")
+
+            if previous_tss in {"SIGNED", "UNSIGNED"} and current_tss in {"SIGNED", "UNSIGNED"} and previous_tss != current_tss:
+                changed.append(f"Apple TSS: {previous_tss} → {current_tss}")
+
+            if changed:
+                alerts.append(
+                    render_alert(
+                        result,
+                        previous_record,
+                        "Status changed: " + "; ".join(changed),
+                        changed,
+                    )
+                )
 
         state[key] = {
             "name": result["name"],
             "device": result["device"],
             "version": result["version"],
             "buildid": result["buildid"],
-            "ipsw_signed": result["ipsw_signed"],
-            "tss_status": result["tss_status"],
-            "status": current,
+            "ipsw_status": current_ipsw,
+            "tss_status": current_tss,
+            "status": result["status"],
         }
 
-    if initial_signed:
+    if baseline:
         lines = [
-            "Initial baseline report: the following firmware builds are currently signed according to both IPSW.me and Apple TSS.",
+            "Initial baseline for Apple firmware signing monitor",
+            "",
+            "The following status was recorded on the first run. Future emails are sent only when IPSW.me or Apple TSS changes between SIGNED and UNSIGNED.",
             "",
         ]
-        for r in initial_signed:
-            lines.append(f"{r['name']} — iOS {r['version']} ({r['buildid']})")
-        lines += ["", "If any of these versions is important to you, save the SHSH2 blob immediately."]
-        alerts.insert(0, ("✅ Initial Signing Baseline — iPhone SE 3rd", "\n".join(lines)))
+        for r in sorted(baseline, key=lambda x: (version_tuple(x["version"]), x["buildid"])):
+            ipsw_status = "SIGNED" if r["ipsw_signed"] else "UNSIGNED"
+            lines.append(
+                f"iOS {r['version']} ({r['buildid']}) — IPSW.me: {ipsw_status} | Apple TSS: {r['tss_status']} | Verification: {r['status']}"
+            )
+        alerts.insert(0, ("📋 Initial Signing Baseline — iPhone SE 3rd", "\n".join(lines)))
 
     save_state(state)
 
