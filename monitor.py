@@ -265,15 +265,34 @@ def main() -> int:
                     )
                 )
 
-        state[key] = {
-            "name": result["name"],
-            "device": result["device"],
-            "version": result["version"],
-            "buildid": result["buildid"],
-            "ipsw_status": current_ipsw,
-            "tss_status": current_tss,
-            "status": result["status"],
-        }
+previous_ipsw = (
+    previous_record.get("ipsw_status")
+    if isinstance(previous_record, dict)
+    else None
+)
+previous_tss = (
+    previous_record.get("tss_status")
+    if isinstance(previous_record, dict)
+    else None
+)
+
+state[key] = {
+    "name": result["name"],
+    "device": result["device"],
+    "version": result["version"],
+    "buildid": result["buildid"],
+    "ipsw_status": (
+        current_ipsw
+        if current_ipsw in {"SIGNED", "UNSIGNED"}
+        else previous_ipsw
+    ),
+    "tss_status": (
+        current_tss
+        if current_tss in {"SIGNED", "UNSIGNED"}
+        else previous_tss
+    ),
+    "status": result["status"],
+}
 
     if baseline:
         lines = [
@@ -289,14 +308,14 @@ def main() -> int:
             )
         alerts.insert(0, ("📋 Initial Signing Baseline — iPhone SE 3rd", "\n".join(lines)))
 
-    save_state(state)
+for subject, body in alerts:
+    smtp_send(subject, body)
+    print(f"[MAIL] Sent: {subject}")
 
-    for subject, body in alerts:
-        smtp_send(subject, body)
-        print(f"[MAIL] Sent: {subject}")
+save_state(state)
 
-    print(f"Completed: {len(all_results)} builds checked, {len(alerts)} email(s) sent.")
-    return 0
+print(f"Completed: {len(all_results)} builds checked, {len(alerts)} email(s) sent.")
+return 0
 
 
 if __name__ == "__main__":
