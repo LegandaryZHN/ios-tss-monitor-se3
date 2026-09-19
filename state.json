@@ -1,1 +1,623 @@
-{}
+{
+  "iPhone14,6:19E241": {
+    "buildid": "19E241",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "15.4"
+  },
+  "iPhone14,6:19E258": {
+    "buildid": "19E258",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "15.4.1"
+  },
+  "iPhone14,6:19F77": {
+    "buildid": "19F77",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "15.5"
+  },
+  "iPhone14,6:19G71": {
+    "buildid": "19G71",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "15.6"
+  },
+  "iPhone14,6:19G82": {
+    "buildid": "19G82",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "15.6.1"
+  },
+  "iPhone14,6:20A362": {
+    "buildid": "20A362",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "16.0"
+  },
+  "iPhone14,6:20A380": {
+    "buildid": "20A380",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "16.0.2"
+  },
+  "iPhone14,6:20A392": {
+    "buildid": "20A392",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "16.0.3"
+  },
+  "iPhone14,6:20B101": {
+    "buildid": "20B101",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "16.1.1"
+  },
+  "iPhone14,6:20B110": {
+    "buildid": "20B110",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "16.1.2"
+  },
+  "iPhone14,6:20B82": {
+    "buildid": "20B82",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "16.1"
+  },
+  "iPhone14,6:20C65": {
+    "buildid": "20C65",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "16.2"
+  },
+  "iPhone14,6:20D47": {
+    "buildid": "20D47",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "16.3"
+  },
+  "iPhone14,6:20D67": {
+    "buildid": "20D67",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "16.3.1"
+  },
+  "iPhone14,6:20E247": {
+    "buildid": "20E247",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "16.4"
+  },
+  "iPhone14,6:20E252": {
+    "buildid": "20E252",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "16.4.1"
+  },
+  "iPhone14,6:20F66": {
+    "buildid": "20F66",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "16.5"
+  },
+  "iPhone14,6:20F75": {
+    "buildid": "20F75",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "16.5.1"
+  },
+  "iPhone14,6:20G75": {
+    "buildid": "20G75",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "16.6"
+  },
+  "iPhone14,6:20G81": {
+    "buildid": "20G81",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "16.6.1"
+  },
+  "iPhone14,6:21A329": {
+    "buildid": "21A329",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "17.0"
+  },
+  "iPhone14,6:21A340": {
+    "buildid": "21A340",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "17.0.1"
+  },
+  "iPhone14,6:21A351": {
+    "buildid": "21A351",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "17.0.2"
+  },
+  "iPhone14,6:21A360": {
+    "buildid": "21A360",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "17.0.3"
+  },
+  "iPhone14,6:21B101": {
+    "buildid": "21B101",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "17.1.2"
+  },
+  "iPhone14,6:21B74": {
+    "buildid": "21B74",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "17.1"
+  },
+  "iPhone14,6:21B91": {
+    "buildid": "21B91",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "17.1.1"
+  },
+  "iPhone14,6:21C62": {
+    "buildid": "21C62",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "17.2"
+  },
+  "iPhone14,6:21C66": {
+    "buildid": "21C66",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "17.2.1"
+  },
+  "iPhone14,6:21D50": {
+    "buildid": "21D50",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "17.3"
+  },
+  "iPhone14,6:21D61": {
+    "buildid": "21D61",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "17.3.1"
+  },
+  "iPhone14,6:21E219": {
+    "buildid": "21E219",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "17.4"
+  },
+  "iPhone14,6:21E236": {
+    "buildid": "21E236",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "17.4.1"
+  },
+  "iPhone14,6:21E237": {
+    "buildid": "21E237",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "17.4.1"
+  },
+  "iPhone14,6:21F79": {
+    "buildid": "21F79",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "17.5"
+  },
+  "iPhone14,6:21F90": {
+    "buildid": "21F90",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "17.5.1"
+  },
+  "iPhone14,6:21G101": {
+    "buildid": "21G101",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "17.6.1"
+  },
+  "iPhone14,6:21G80": {
+    "buildid": "21G80",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "17.6"
+  },
+  "iPhone14,6:21G93": {
+    "buildid": "21G93",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "17.6.1"
+  },
+  "iPhone14,6:21H16": {
+    "buildid": "21H16",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "17.7"
+  },
+  "iPhone14,6:22A3354": {
+    "buildid": "22A3354",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "18.0"
+  },
+  "iPhone14,6:22A3370": {
+    "buildid": "22A3370",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "18.0.1"
+  },
+  "iPhone14,6:22B83": {
+    "buildid": "22B83",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "18.1"
+  },
+  "iPhone14,6:22B91": {
+    "buildid": "22B91",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "18.1.1"
+  },
+  "iPhone14,6:22C152": {
+    "buildid": "22C152",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "18.2"
+  },
+  "iPhone14,6:22C161": {
+    "buildid": "22C161",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "18.2.1"
+  },
+  "iPhone14,6:22D63": {
+    "buildid": "22D63",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "18.3"
+  },
+  "iPhone14,6:22D72": {
+    "buildid": "22D72",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "18.3.1"
+  },
+  "iPhone14,6:22D82": {
+    "buildid": "22D82",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "18.3.2"
+  },
+  "iPhone14,6:22E240": {
+    "buildid": "22E240",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "18.4"
+  },
+  "iPhone14,6:22E252": {
+    "buildid": "22E252",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "18.4.1"
+  },
+  "iPhone14,6:22F76": {
+    "buildid": "22F76",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "18.5"
+  },
+  "iPhone14,6:22G100": {
+    "buildid": "22G100",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "18.6.2"
+  },
+  "iPhone14,6:22G86": {
+    "buildid": "22G86",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "18.6"
+  },
+  "iPhone14,6:22G90": {
+    "buildid": "22G90",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "18.6.1"
+  },
+  "iPhone14,6:23A341": {
+    "buildid": "23A341",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "26.0"
+  },
+  "iPhone14,6:23A355": {
+    "buildid": "23A355",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "26.0.1"
+  },
+  "iPhone14,6:23B85": {
+    "buildid": "23B85",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "26.1"
+  },
+  "iPhone14,6:23C55": {
+    "buildid": "23C55",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "26.2"
+  },
+  "iPhone14,6:23C71": {
+    "buildid": "23C71",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "26.2.1"
+  },
+  "iPhone14,6:23D127": {
+    "buildid": "23D127",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "26.3"
+  },
+  "iPhone14,6:23D8133": {
+    "buildid": "23D8133",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "26.3.1"
+  },
+  "iPhone14,6:23E246": {
+    "buildid": "23E246",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "26.4"
+  },
+  "iPhone14,6:23E254": {
+    "buildid": "23E254",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "26.4.1"
+  },
+  "iPhone14,6:23E261": {
+    "buildid": "23E261",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "26.4.2"
+  },
+  "iPhone14,6:23F77": {
+    "buildid": "23F77",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "26.5"
+  },
+  "iPhone14,6:23F84": {
+    "buildid": "23F84",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "26.5.2"
+  },
+  "iPhone14,6:23G71": {
+    "buildid": "23G71",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "26.6"
+  },
+  "iPhone14,6:23G83": {
+    "buildid": "23G83",
+    "device": "iPhone14,6",
+    "ipsw_status": "UNSIGNED",
+    "name": "iPhone SE 3rd",
+    "status": "UNSIGNED_CONFIRMED",
+    "tss_status": "UNSIGNED",
+    "version": "26.6.1"
+  }
+}
