@@ -32,6 +32,7 @@ def version_tuple(v: str) -> tuple[int, int, int]:
         r"(\d+)(?:\.(\d+))?(?:\.(\d+))?",
         v.strip(),
     )
+
     if not m:
         raise ValueError(f"Invalid release version: {v}")
 
@@ -42,29 +43,46 @@ def version_tuple(v: str) -> tuple[int, int, int]:
     )
 
 
-def in_range(version: str, minimum: str, maximum: str) -> bool:
+def in_range(
+    version: str,
+    minimum: str,
+    maximum: str,
+) -> bool:
     v = version_tuple(version)
-    return version_tuple(minimum) <= v <= version_tuple(maximum)
+
+    return (
+        version_tuple(minimum)
+        <= v
+        <= version_tuple(maximum)
+    )
 
 
-def load_json(path: Path, default: Any) -> Any:
+def load_json(
+    path: Path,
+    default: Any,
+) -> Any:
     if not path.exists():
         return default
 
     try:
         return json.loads(
-            path.read_text(encoding="utf-8")
+            path.read_text(
+                encoding="utf-8"
+            )
         )
     except Exception as exc:
         print(
-            f"[WARN] Could not read {path}: {exc}; "
-            "using empty state.",
+            f"[WARN] Could not read {path}: "
+            f"{exc}; using empty state.",
             file=sys.stderr,
         )
+
         return default
 
 
-def save_state(state: dict[str, Any]) -> None:
+def save_state(
+    state: dict[str, Any],
+) -> None:
     tmp = STATE_FILE.with_suffix(".tmp")
 
     tmp.write_text(
@@ -73,7 +91,8 @@ def save_state(state: dict[str, Any]) -> None:
             ensure_ascii=False,
             indent=2,
             sort_keys=True,
-        ) + "\n",
+        )
+        + "\n",
         encoding="utf-8",
     )
 
@@ -83,16 +102,18 @@ def save_state(state: dict[str, Any]) -> None:
 def fetch_ipsw_firmwares(
     device: str,
 ) -> list[dict[str, Any]]:
-    url = IPSW_API.format(device=device)
+    url = IPSW_API.format(
+        device=device
+    )
 
-    r = requests.get(
+    response = requests.get(
         url,
         timeout=HTTP_TIMEOUT,
     )
 
-    r.raise_for_status()
+    response.raise_for_status()
 
-    data = r.json()
+    data = response.json()
 
     firmwares = data.get("firmwares")
 
@@ -175,7 +196,9 @@ def check_tss(
             detail[:300],
         )
 
-    status = int(status_matches[-1])
+    status = int(
+        status_matches[-1]
+    )
 
     if status == 0:
         return (
@@ -203,15 +226,23 @@ def final_status(
     tss_status: str,
 ) -> str:
 
-    if ipsw_signed is None or tss_status == "UNKNOWN":
+    if (
+        ipsw_signed is None
+        or tss_status == "UNKNOWN"
+    ):
         return "UNKNOWN"
 
-    tss_signed = tss_status == "SIGNED"
+    tss_signed = (
+        tss_status == "SIGNED"
+    )
 
     if ipsw_signed and tss_signed:
         return "SIGNED_CONFIRMED"
 
-    if not ipsw_signed and not tss_signed:
+    if (
+        not ipsw_signed
+        and not tss_signed
+    ):
         return "UNSIGNED_CONFIRMED"
 
     return "CONFLICT"
@@ -222,8 +253,14 @@ def do_check(
     fw: dict[str, Any],
 ) -> dict[str, Any]:
 
-    version = str(fw.get("version", ""))
-    buildid = str(fw.get("buildid", ""))
+    version = str(
+        fw.get("version", "")
+    )
+
+    buildid = str(
+        fw.get("buildid", "")
+    )
+
     signed = fw.get("signed")
 
     if (
@@ -233,18 +270,21 @@ def do_check(
     ):
         return {
             "ok": False,
-            "reason": "Malformed IPSW.me firmware object",
+            "reason": (
+                "Malformed IPSW.me "
+                "firmware object"
+            ),
             "firmware": fw,
         }
 
-    tss, tss_code, tss_detail = check_tss(
+    tss_status, tss_code, tss_detail = check_tss(
         target["device"],
         buildid,
     )
 
     final = final_status(
         signed,
-        tss,
+        tss_status,
     )
 
     return {
@@ -254,7 +294,7 @@ def do_check(
         "version": version,
         "buildid": buildid,
         "ipsw_signed": signed,
-        "tss_status": tss,
+        "tss_status": tss_status,
         "tss_code": tss_code,
         "tss_detail": tss_detail,
         "status": final,
@@ -266,7 +306,9 @@ def smtp_send(
     body: str,
 ) -> None:
 
-    host = os.environ.get("SMTP_HOST")
+    host = os.environ.get(
+        "SMTP_HOST"
+    )
 
     port = int(
         os.environ.get(
@@ -305,13 +347,13 @@ def smtp_send(
             "SMTP secrets are incomplete"
         )
 
-    msg = EmailMessage()
+    message = EmailMessage()
 
-    msg["Subject"] = subject
-    msg["From"] = sender
-    msg["To"] = recipient
+    message["Subject"] = subject
+    message["From"] = sender
+    message["To"] = recipient
 
-    msg.set_content(body)
+    message.set_content(body)
 
     if port == 465:
 
@@ -326,7 +368,9 @@ def smtp_send(
                 password,
             )
 
-            smtp.send_message(msg)
+            smtp.send_message(
+                message
+            )
 
     else:
 
@@ -343,13 +387,14 @@ def smtp_send(
                 password,
             )
 
-            smtp.send_message(msg)
+            smtp.send_message(
+                message
+            )
 
 
 def render_alert(
     result: dict[str, Any],
     previous_record: dict[str, Any],
-    reason: str,
     changed: list[str],
 ) -> tuple[str, str]:
 
@@ -382,12 +427,18 @@ def render_alert(
         f"ProductType: {result['device']}\n"
         f"iOS: {result['version']}\n"
         f"Build: {result['buildid']}\n\n"
-        f"IPSW.me: {previous_ipsw} → {current_ipsw}\n"
-        f"Apple TSS: {previous_tss} → "
+        f"IPSW.me: "
+        f"{previous_ipsw} → "
+        f"{current_ipsw}\n"
+        f"Apple TSS: "
+        f"{previous_tss} → "
         f"{result['tss_status']}\n"
-        f"Verification: {result['status']}\n\n"
-        f"Changed source(s): {'; '.join(changed)}\n"
-        f"TSS detail: {result['tss_detail']}\n\n"
+        f"Verification: "
+        f"{result['status']}\n\n"
+        f"Changed source(s): "
+        f"{'; '.join(changed)}\n"
+        f"TSS detail: "
+        f"{result['tss_detail']}\n\n"
         "If this firmware is important to you, "
         "save the SHSH2 blob immediately.\n"
     )
@@ -407,7 +458,10 @@ def main() -> int:
         {},
     )
 
-    if not isinstance(targets, list) or not targets:
+    if (
+        not isinstance(targets, list)
+        or not targets
+    ):
         raise RuntimeError(
             "targets.json is empty"
         )
@@ -450,8 +504,7 @@ def main() -> int:
             )
         ]
 
-        # De-duplicate by Build ID and keep
-        # deterministic ordering.
+        # De-duplicate by Build ID.
         selected_by_build: dict[
             str,
             dict[str, Any],
@@ -474,7 +527,8 @@ def main() -> int:
         print(
             f"[{device}] "
             f"{len(selected)} public IPSW builds "
-            f"in range {minimum}–{maximum}"
+            f"in range "
+            f"{minimum}–{maximum}"
         )
 
         with ThreadPoolExecutor(
@@ -509,7 +563,8 @@ def main() -> int:
                         f"{'Y' if result['ipsw_signed'] else 'N'} "
                         f"TSS="
                         f"{result['tss_status']:<8} "
-                        f"-> {result['status']}"
+                        f"-> "
+                        f"{result['status']}"
                     )
 
                 else:
@@ -554,9 +609,9 @@ def main() -> int:
             else "UNSIGNED"
         )
 
-        current_tss = result[
-            "tss_status"
-        ]
+        current_tss = (
+            result["tss_status"]
+        )
 
         if (
             not isinstance(
@@ -567,8 +622,7 @@ def main() -> int:
         ):
 
             # First run:
-            # establish the baseline and
-            # report it once.
+            # establish baseline.
             baseline.append(result)
 
         else:
@@ -599,7 +653,7 @@ def main() -> int:
             ):
 
                 changed.append(
-                    "IPSW.me: "
+                    f"IPSW.me: "
                     f"{previous_ipsw} → "
                     f"{current_ipsw}"
                 )
@@ -616,30 +670,28 @@ def main() -> int:
             ):
 
                 changed.append(
-                    "Apple TSS: "
+                    f"Apple TSS: "
                     f"{previous_tss} → "
                     f"{current_tss}"
                 )
 
-            # If either source changed,
-            # generate exactly one alert for
-            # this Build ID.
+            # One email per Build ID,
+            # even if both sources changed.
             if changed:
 
                 alerts.append(
                     render_alert(
                         result,
                         previous_record,
-                        "Status changed: "
-                        + "; ".join(changed),
                         changed,
                     )
                 )
 
         # Keep the last known reliable status.
         #
-        # UNKNOWN must NOT overwrite a previous
-        # SIGNED or UNSIGNED state.
+        # UNKNOWN must NOT overwrite a
+        # previous SIGNED or UNSIGNED state.
+
         previous_ipsw = (
             previous_record.get(
                 "ipsw_status"
@@ -695,30 +747,30 @@ def main() -> int:
             "",
         ]
 
-        for r in sorted(
+        for result in sorted(
             baseline,
-            key=lambda x: (
+            key=lambda r: (
                 version_tuple(
-                    x["version"]
+                    r["version"]
                 ),
-                x["buildid"],
+                r["buildid"],
             ),
         ):
 
             ipsw_status = (
                 "SIGNED"
-                if r["ipsw_signed"]
+                if result["ipsw_signed"]
                 else "UNSIGNED"
             )
 
             lines.append(
-                f"iOS {r['version']} "
-                f"({r['buildid']}) — "
+                f"iOS {result['version']} "
+                f"({result['buildid']}) — "
                 f"IPSW.me: {ipsw_status} | "
                 f"Apple TSS: "
-                f"{r['tss_status']} | "
+                f"{result['tss_status']} | "
                 f"Verification: "
-                f"{r['status']}"
+                f"{result['status']}"
             )
 
         alerts.insert(
@@ -730,10 +782,10 @@ def main() -> int:
             ),
         )
 
-    # Send all notifications BEFORE saving state.
+    # Send notifications BEFORE saving state.
     #
-    # If SMTP fails, the state is not saved,
-    # so the next run can retry the notification.
+    # If SMTP fails, state is not saved,
+    # allowing the next run to retry.
     for subject, body in alerts:
 
         smtp_send(
