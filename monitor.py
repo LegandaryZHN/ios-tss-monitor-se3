@@ -52,10 +52,13 @@ def load_json(path: Path, default: Any) -> Any:
         return default
 
     try:
-        return json.loads(path.read_text(encoding="utf-8"))
+        return json.loads(
+            path.read_text(encoding="utf-8")
+        )
     except Exception as exc:
         print(
-            f"[WARN] Could not read {path}: {exc}; using empty state.",
+            f"[WARN] Could not read {path}: {exc}; "
+            "using empty state.",
             file=sys.stderr,
         )
         return default
@@ -77,13 +80,16 @@ def save_state(state: dict[str, Any]) -> None:
     tmp.replace(STATE_FILE)
 
 
-def fetch_ipsw_firmwares(device: str) -> list[dict[str, Any]]:
+def fetch_ipsw_firmwares(
+    device: str,
+) -> list[dict[str, Any]]:
     url = IPSW_API.format(device=device)
 
     r = requests.get(
         url,
         timeout=HTTP_TIMEOUT,
     )
+
     r.raise_for_status()
 
     data = r.json()
@@ -92,7 +98,8 @@ def fetch_ipsw_firmwares(device: str) -> list[dict[str, Any]]:
 
     if not isinstance(firmwares, list):
         raise RuntimeError(
-            "IPSW.me response does not contain a firmware list"
+            "IPSW.me response does not contain "
+            "a firmware list"
         )
 
     return firmwares
@@ -260,6 +267,7 @@ def smtp_send(
 ) -> None:
 
     host = os.environ.get("SMTP_HOST")
+
     port = int(
         os.environ.get(
             "SMTP_PORT",
@@ -267,15 +275,22 @@ def smtp_send(
         )
     )
 
-    username = os.environ.get("SMTP_USERNAME")
-    password = os.environ.get("SMTP_PASSWORD")
+    username = os.environ.get(
+        "SMTP_USERNAME"
+    )
+
+    password = os.environ.get(
+        "SMTP_PASSWORD"
+    )
 
     sender = (
         os.environ.get("MAIL_FROM")
         or username
     )
 
-    recipient = os.environ.get("MAIL_TO")
+    recipient = os.environ.get(
+        "MAIL_TO"
+    )
 
     if not all(
         [
@@ -299,23 +314,28 @@ def smtp_send(
     msg.set_content(body)
 
     if port == 465:
+
         with smtplib.SMTP_SSL(
             host,
             port,
             timeout=30,
         ) as smtp:
+
             smtp.login(
                 username,
                 password,
             )
+
             smtp.send_message(msg)
 
     else:
+
         with smtplib.SMTP(
             host,
             port,
             timeout=30,
         ) as smtp:
+
             smtp.starttls()
 
             smtp.login(
@@ -363,7 +383,8 @@ def render_alert(
         f"iOS: {result['version']}\n"
         f"Build: {result['buildid']}\n\n"
         f"IPSW.me: {previous_ipsw} → {current_ipsw}\n"
-        f"Apple TSS: {previous_tss} → {result['tss_status']}\n"
+        f"Apple TSS: {previous_tss} → "
+        f"{result['tss_status']}\n"
         f"Verification: {result['status']}\n\n"
         f"Changed source(s): {'; '.join(changed)}\n"
         f"TSS detail: {result['tss_detail']}\n\n"
@@ -394,7 +415,9 @@ def main() -> int:
     if not isinstance(state, dict):
         state = {}
 
-    all_results: list[dict[str, Any]] = []
+    all_results: list[
+        dict[str, Any]
+    ] = []
 
     for target in targets:
 
@@ -543,8 +566,9 @@ def main() -> int:
             or not previous_record
         ):
 
-            # First run: establish the
-            # baseline and report it once.
+            # First run:
+            # establish the baseline and
+            # report it once.
             baseline.append(result)
 
         else:
@@ -563,6 +587,8 @@ def main() -> int:
 
             changed: list[str] = []
 
+            # IPSW.me:
+            # SIGNED <-> UNSIGNED
             if (
                 previous_ipsw
                 in {"SIGNED", "UNSIGNED"}
@@ -571,12 +597,15 @@ def main() -> int:
                 and previous_ipsw
                 != current_ipsw
             ):
+
                 changed.append(
                     "IPSW.me: "
                     f"{previous_ipsw} → "
                     f"{current_ipsw}"
                 )
 
+            # Apple TSS:
+            # SIGNED <-> UNSIGNED
             if (
                 previous_tss
                 in {"SIGNED", "UNSIGNED"}
@@ -585,12 +614,16 @@ def main() -> int:
                 and previous_tss
                 != current_tss
             ):
+
                 changed.append(
                     "Apple TSS: "
                     f"{previous_tss} → "
                     f"{current_tss}"
                 )
 
+            # If either source changed,
+            # generate exactly one alert for
+            # this Build ID.
             if changed:
 
                 alerts.append(
@@ -603,9 +636,10 @@ def main() -> int:
                     )
                 )
 
-        # IMPORTANT:
-        # UNKNOWN does not overwrite a previously
-        # known SIGNED/UNSIGNED state.
+        # Keep the last known reliable status.
+        #
+        # UNKNOWN must NOT overwrite a previous
+        # SIGNED or UNSIGNED state.
         previous_ipsw = (
             previous_record.get(
                 "ipsw_status"
@@ -651,10 +685,12 @@ def main() -> int:
     if baseline:
 
         lines = [
-            "Initial baseline for Apple firmware signing monitor",
+            "Initial baseline for Apple firmware "
+            "signing monitor",
             "",
-            "The following status was recorded on the first run. "
-            "Future emails are sent only when IPSW.me or Apple TSS "
+            "The following status was recorded "
+            "on the first run. Future emails are "
+            "sent only when IPSW.me or Apple TSS "
             "changes between SIGNED and UNSIGNED.",
             "",
         ]
@@ -679,8 +715,10 @@ def main() -> int:
                 f"iOS {r['version']} "
                 f"({r['buildid']}) — "
                 f"IPSW.me: {ipsw_status} | "
-                f"Apple TSS: {r['tss_status']} | "
-                f"Verification: {r['status']}"
+                f"Apple TSS: "
+                f"{r['tss_status']} | "
+                f"Verification: "
+                f"{r['status']}"
             )
 
         alerts.insert(
@@ -692,11 +730,10 @@ def main() -> int:
             ),
         )
 
-    # Send all emails BEFORE saving state.
+    # Send all notifications BEFORE saving state.
     #
-    # If SMTP fails, save_state() is not reached.
-    # The next workflow run will therefore retry
-    # the same notification instead of losing it.
+    # If SMTP fails, the state is not saved,
+    # so the next run can retry the notification.
     for subject, body in alerts:
 
         smtp_send(
