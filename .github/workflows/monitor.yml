@@ -1,0 +1,59 @@
+name: Apple TSS Signing Monitor
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "2-57/5 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tss-monitor
+  cancel-in-progress: true
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Download Modern TSS Checker
+        run: |
+          git clone --depth 1 \
+            https://github.com/rhcp011235/Modern_TSS_Checker.git \
+            Modern_TSS_Checker
+
+      - name: Run monitor
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+        run: python monitor.py
+
+      - name: Commit state changes
+        run: |
+          if git diff --quiet -- state.json; then
+            echo "No state change."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add state.json
+          git commit -m "Update TSS signing state"
+          git push
